@@ -1,15 +1,41 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="fw-semibold fs-4 text-dark">
             {{ __('Admin - Dashboard') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("Você logou em uma conta de administrador!") }}
+    <div class="py-5">
+        <div class="container">
+            <div class="bg-white overflow-hidden shadow-sm rounded">
+                <div class="p-4 text-dark">
+                    {{ __("Você está logado em uma conta de administrador!") }}
+                </div>
+            </div>
+            <div class="d-flex row row-cols-2">
+                <div class="border p-4 w-50 col">
+                    <p>Alunos</p>
+                    <button class="btn btn-primary">Gerenciar Alunos</button>
+                </div>
+                <div class="border p-4 w-50 col">
+                    <p>Cursos</p>
+                    <button class="btn btn-primary">Gerenciar Cursos</button>
+                </div>
+                <div class="border p-4 w-50 col">
+                    <p>Turmas</p>
+                    <button class="btn btn-primary">Gerenciar Turmas</button>
+                </div>
+                <div class="border p-4 w-50 col">
+                    <p>Eixos</p>
+                    <button class="btn btn-primary">Gerenciar Eixos</button>
+                </div>
+                <div class="border p-4 w-50 col">
+                    <p>Niveis de Ensino</p>
+                    <button class="btn btn-primary">Gerenciar Niveis de Ensino</button>
+                </div>
+                   <div class="border p-4 w-50 col">
+                    <p>Categorias de documentos</p>
+                    <button class="btn btn-primary">Gerenciar Categorias de Documentos</button>
                 </div>
             </div>
         </div>
