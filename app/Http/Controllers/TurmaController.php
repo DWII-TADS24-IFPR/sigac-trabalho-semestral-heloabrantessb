@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Curso;
+use Illuminate\Http\Request;
+
+use App\Models\Turma;
+
+class TurmaController extends Controller
+{
+    public function index()
+    {
+        $turmas = Turma::all();
+
+        return view('turmas.index')->with('turmas', $turmas);
+    }
+
+    public function create()
+    {
+        $cursos = Curso::all();
+
+        return view('turmas.create', compact('cursos'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'ano' => 'required|integer',
+            'curso_id' => 'required|exists:cursos,id'
+        ]);
+
+        Turma::create($validated);
+
+        return redirect()->route('turmas.index')->with('success', 'Turmas criada com sucesso');
+    }
+
+    public function show(string $id)
+    {
+        $turma = Turma::findOrFail($id);
+
+        return view('turmas.show')->with('turma', $turma);
+    }
+
+    public function edit(string $id)
+    {
+        $turma = Turma::findOrFail($id);
+
+        return view('turmas.edit')->with('turma', $turma);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $turma = Turma::findOrFail($id);
+
+        $validated = $request->validate([
+            'ano' => 'required|integer',
+        ]);
+
+        $turma->ano = $validated['ano'];
+
+        $turma->save();
+
+        return redirect()->route('turmas.index');
+    }
+
+    public function destroy(string $id)
+    {
+        $turma = Turma::findOrFail($id);
+
+        $turma->delete();
+
+        return redirect()->route('turmas.index');
+    }
+}

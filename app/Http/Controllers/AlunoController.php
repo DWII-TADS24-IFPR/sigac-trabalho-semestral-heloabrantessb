@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Aluno;
+use App\Models\Curso;
+use App\Models\Turma;
+use App\Models\User;
 
 class AlunoController extends Controller
 {
@@ -22,29 +25,36 @@ class AlunoController extends Controller
 
     public function create()
     {
-        return view('alunos.create');
+        $cursos = Curso::all();
+        $turmas = Turma::all();
+        return view('alunos.create', compact('turmas', 'cursos'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|max:14',
-            'email' => 'required|max:255|email',
             'telefone' => 'max:15',
-            'senha' => 'required|string|min:8',
+            'cpf' => 'required|max:14',
             'curso_id' => 'required|exists:cursos, id',
             'turma_id' => 'required|exists:turmas, id',
+            'email' => 'required|email|unique: users, email',
+            'password' => 'required|min:8'
         ]);
+
+        $user = User::create([
+            'nome' => $validated['nome'],
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+        ]); 
 
         Aluno::create([
             'nome' => $validated['nome'],
             'cpf' => $validated['cpf'],
-            'email' => $validated['email'],
             'telefone' => $validated['telefone'],
-            'senha' => $validated['senha'],
             'curso_id' => $validated['curso_id'],
             'turma_id' => $validated['turma_id'],
+            'user_id' => $user->id,
         ]);
 
         return redirect()->route('alunos.index')->with('success', 'Aluno criado com sucesso!');
