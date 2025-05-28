@@ -1,41 +1,41 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="fw-semibold fs-4 text-dark">
+        <h2 class="fw-semibold fs-4 text-light">
             {{ __('Admin - Dashboard') }}
         </h2>
     </x-slot>
 
     <div class="py-5">
         <div class="container">
-            <div class="bg-white overflow-hidden shadow-sm rounded">
-                <div class="p-4 text-dark">
+            <div class="bg-dark text-light overflow-hidden shadow-sm rounded">
+                <div class="p-4">
                     {{ __("Você está logado em uma conta de administrador!") }}
                 </div>
             </div>
-            <div class="d-flex row row-cols-2">
-                <div class="border p-4 w-50 col">
+            <div class="d-flex row row-cols-2 mt-4">
+                <div class="border border-light p-4 w-50 col">
                     <p>Alunos</p>
-                    <button class="btn btn-primary">Gerenciar Alunos</button>
+                    <a class="btn btn-primary" href="{{ Route('alunos.index') }}">Gerenciar Alunos</a>
                 </div>
-                <div class="border p-4 w-50 col">
+                <div class="border border-light p-4 w-50 col">
                     <p>Cursos</p>
-                    <button class="btn btn-primary">Gerenciar Cursos</button>
+                    <a class="btn btn-primary" href="{{ Route('cursos.index') }}">Gerenciar Cursos</a>
                 </div>
-                <div class="border p-4 w-50 col">
+                <div class="border border-light p-4 w-50 col">
                     <p>Turmas</p>
-                    <button class="btn btn-primary">Gerenciar Turmas</button>
+                    <a class="btn btn-primary" href="{{ Route('turmas.index') }}">Gerenciar Turmas</a>
                 </div>
-                <div class="border p-4 w-50 col">
+                <div class="border border-light p-4 w-50 col">
                     <p>Eixos</p>
-                    <button class="btn btn-primary">Gerenciar Eixos</button>
+                    <a class="btn btn-primary" href="{{ Route('eixos.index') }}">Gerenciar Eixos</a>
                 </div>
-                <div class="border p-4 w-50 col">
+                <div class="border border-light p-4 w-50 col">
                     <p>Niveis de Ensino</p>
-                    <button class="btn btn-primary">Gerenciar Niveis de Ensino</button>
+                    <a class="btn btn-primary" href="{{ Route('niveis.index') }}">Gerenciar Niveis de Ensino</a>
                 </div>
-                   <div class="border p-4 w-50 col">
+                <div class="border border-light p-4 w-50 col">
                     <p>Categorias de documentos</p>
-                    <button class="btn btn-primary">Gerenciar Categorias de Documentos</button>
+                    <a class="btn btn-primary" href="{{ Route('categorias.index') }}">Gerenciar Categorias de Documentos</a>
                 </div>
             </div>
         </div>

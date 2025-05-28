@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" >
     <div class="container">
         <a class="navbar-brand" href="{{ route('dashboard') }}">
             SIGAC

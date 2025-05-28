@@ -19,7 +19,7 @@
 
 <body data-bs-theme="dark">
 
-    <footer class="d-flex flex-column align-items-center">
+    <footer class="d-flex card-footer flex-column align-items-center p-4 bg-secondary-subtle">
         <p>
             SIGAC - Sistema de Gerenciamento de Atividades Complementares &copy; {{ date('Y') }}
         </p>
