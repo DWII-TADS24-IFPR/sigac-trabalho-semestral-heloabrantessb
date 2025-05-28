@@ -13,10 +13,10 @@ class AlunoController extends Controller
 {
     public function dashboard()
     {
-        return view('aluno.dashboard');
+        return view('alunos.dashboard');
     }
 
-    public function index()
+    public function index() 
     {
         $alunos = Aluno::all();
 

@@ -10,9 +10,14 @@ class Documento extends Model
     use SoftDeletes;
 
     protected $table = 'documentos';
-    protected $fillable = ['url', 'horas_in', 'status', 'comentario', 'horas_out', 'categoria_id'];
+    protected $fillable = ['url', 'horas_in', 'status', 'comentario', 'horas_out', 'categoria_id, user_id'];
 
     public function categorias()
+    {
+        return $this->belongsTo(Categoria::class)->withTimestamps();
+    }
+
+    public function user()
     {
         return $this->belongsTo(Categoria::class)->withTimestamps();
     }
