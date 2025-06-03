@@ -13,6 +13,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">NOME</th>
+                <th scope="col">AÇÕES</th>
             </tr>
         </thead>
         <tbody>
@@ -25,4 +26,5 @@
             @endforeach
         </tbody>
     </table>
+    <a  class="btn btn-secondary"  href="{{ route('dashboard')}}">Voltar ao dashboard</a>
 </div>

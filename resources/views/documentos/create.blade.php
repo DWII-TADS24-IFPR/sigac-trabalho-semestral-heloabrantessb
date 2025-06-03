@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="fw-semibold fs-4 text-dark">
+        <h2 class="fw-semibold fs-4 text-light">
             {{ __('Enviar Documento') }}
         </h2>
     </x-slot>
@@ -33,7 +33,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <input class="btn btn-primary mt-2" type="submit" value="Criar">
         </form>
     </div>
 </x-app-layout>

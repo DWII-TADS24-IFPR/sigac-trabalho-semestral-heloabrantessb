@@ -34,7 +34,7 @@
             <h1 class="text-center">
                 SIGAC
             </h1>
-            <p class="fs-1 text-secondary">Sistema de Gerenciamento de atividades complementares</p>
+            <p class="fs-1 text-secondary">Sistema de Gerenciamento de Atividades Complementares</p>
 
             <form role="" class="m-0 d-flex flex-column w-25 gap-4">
                 @auth

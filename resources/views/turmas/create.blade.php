@@ -22,5 +22,6 @@
                 aria-label="default input example" name="ano">
         </div>
         <input class="btn btn-primary mt-2" type="submit" value="Cadastrar Turma">
+        <a  class="btn btn-secondary"  href="{{ route('turmas.index')}}">Voltar</a>
     </form>
 </div>

@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom" >
+<nav class="navbar navbar-expand-lg navbar-light border-bottom bg-secondary-subtle">
     <div class="container">
         <a class="navbar-brand" href="{{ route('dashboard') }}">
             SIGAC
         </a>
-        
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side -->
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
+                <li class="nav-item ">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -45,5 +45,3 @@
         </div>
     </div>
 </nav>
-
-

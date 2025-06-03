@@ -1,12 +1,9 @@
 @extends('layouts.footer')
 
-@section('title', 'SIGAC - Alunos')
+@section('title', 'SIGAC - Documentos')
 
 <div class="m-4">
-    <h1>Cursos</h1>
-
-    <button class="btn btn-primary" onclick="window.location.href='{{ route('cursos.create') }}'"> Adicionar
-        Cursos</button>
+    <h1>Documentos</h1>
 
     <table class="table table-white">
         <thead>
@@ -21,15 +18,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($cursos as $curso)
+            @foreach ($documentos as $documento)
                 <tr>
-                    <td>{{ $curso->id }}</td>
-                    <td>{{ $curso->nome }}</td>
-                    <td>{{ $curso->sigla }}</td>
-                    <td>{{ $curso->total_horas }}</td>
-                    <td>{{ $curso->nivel->nome }}</td>
-                    <td>{{ $curso->eixo->nome }}</td>
-                    <td><a href="{{ route('cursos.show', $curso->id) }}" class="btn btn-success">Visualizar</a></td>
+                    <td>{{ $documento->id }}</td>
+                    <td>{{ $documento->url }}</td>
+                    <td>{{ $documento->horas_in }}</td>
+                    <td>{{ $documento->comentario }}</td>
+                    <td>{{ $documento->horas_out}}</td>
+                    <td>{{ $documento->categoria->nome ?? 'Sem categoria'}}</td>
+                    <td><a href="{{ route('documentos.show', $documento->id) }}" class="btn btn-success">Visualizar</a></td>
                 </tr>
             @endforeach
         </tbody>

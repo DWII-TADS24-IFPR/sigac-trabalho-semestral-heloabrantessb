@@ -16,12 +16,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-dark text-light">
+<body data-bs-theme="dark" class="bg-dark text-light">
     @include('layouts.navigation')
 
     <!-- Page Heading -->
     @isset($header)
-        <header class="bg-secondary shadow p-3">
+        <header class="bg-dark-subtle shadow p-3">
             <div class="container">
                 {{ $header }}
             </div>
