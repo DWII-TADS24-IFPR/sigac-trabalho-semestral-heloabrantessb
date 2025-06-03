@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->float('horas_in');
-            $table->string('status');
-            $table->string('comentario');
-            $table->float('horas_out');
+            $table->string('status')->nullable();
+            $table->string('comentario')->nullable();
+            $table->float('horas_out')->nullable();
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
