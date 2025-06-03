@@ -13,10 +13,6 @@ class CategoriaSeeder extends Seeder
      */
     public function run(): void
     {
-        Categoria::insert([
-            [
-                
-            ],
-        ]);
+        
     }
 }

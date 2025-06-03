@@ -14,7 +14,7 @@ class DocumentoController extends Controller
     {
         $documentos = Documento::all();
 
-        return view('documentos.index')->with('documentos', $documentos);//View
+        return view('documentos.index')->with('documentos', $documentos); //View
     }
 
     public function create()
@@ -25,29 +25,28 @@ class DocumentoController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'arquivo' => 'required|file|max:2048',
-            'horas_in' => 'required|numeric',
-            'comentario' => 'nullable|string',
-            'categoria_id' => 'required|exists: categorias, id',
-        ]);
+{
+    $validated = $request->validate([
+        'url' => 'required|file|max:2048',
+        'horas_in' => 'required|numeric',
+        'comentario' => 'nullable|string|max:255',
+        'categoria_id' => 'required|exists:categorias,id',
+    ]);
 
-        $path = $request->file('url')->store('documentos', 'public');
+    $path = $request->file('url')->store('documentos', 'public');
 
-        Documento::create([
-            'url' => $path,
-            'horas_in' => $validated['horas_in'],
-            'status' => 'pendente   ',
-            'comentario' => $validated['comentario'],
-            'horas_out' => 0,
-            'categoria_id' => $validated['categoria_id'],
-            'user_id' => Auth::id()
-        ]);
+    Documento::create([
+        'url' => $path,
+        'horas_in' => $validated['horas_in'],
+        'status' => 'pendente',
+        'comentario' => $validated['comentario'] ?? null,
+        'horas_out' => 0,
+        'categoria_id' => $validated['categoria_id'],
+        'user_id' => Auth::id(),
+    ]);
 
-        return redirect()->route("documentos.index")->with('success', 'Documento criado com sucesso!');
-    }
-
+    return redirect()->route("documentos.index")->with('success', 'Documento criado com sucesso!');
+}
     public function show(string $id)
     {
         $documento = Documento::findOrFail($id);
@@ -58,9 +57,8 @@ class DocumentoController extends Controller
     public function edit(string $id)
     {
         $documento = Documento::findOrFail($id);
-        
-        return view('documentos.edit')->with('documentos', $documento);
 
+        return view('documentos.edit')->with('documentos', $documento);
     }
 
     public function update(Request $request, string $id)
@@ -77,8 +75,8 @@ class DocumentoController extends Controller
 
         $documento->url = $validated['url'];
         $documento->horas_in = $validated['horas_in'];
-        $documento->status= $validated['status'];
-        $documento->comentario= $validated['comentario'];
+        $documento->status = $validated['status'];
+        $documento->comentario = $validated['comentario'];
         $documento->horas_out = $validated['horas_out'];
 
         $documento->save();

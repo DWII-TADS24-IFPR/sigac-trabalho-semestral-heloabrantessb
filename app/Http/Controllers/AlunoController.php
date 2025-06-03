@@ -8,6 +8,7 @@ use App\Models\Aluno;
 use App\Models\Curso;
 use App\Models\Turma;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AlunoController extends Controller
 {
@@ -27,7 +28,7 @@ class AlunoController extends Controller
     {
         $cursos = Curso::all();
         $turmas = Turma::all();
-        return view('alunos.create', compact('turmas', 'cursos'));
+        return view('alunos.create', compact('cursos','turmas'));
     }
 
     public function store(Request $request)
@@ -36,16 +37,16 @@ class AlunoController extends Controller
             'nome' => 'required|string|max:255',
             'telefone' => 'max:15',
             'cpf' => 'required|max:14',
-            'curso_id' => 'required|exists:cursos, id',
-            'turma_id' => 'required|exists:turmas, id',
-            'email' => 'required|email|unique: users, email',
-            'password' => 'required|min:8'
+            'curso_id' => 'required|exists:cursos,id',
+            'turma_id' => 'required|exists:turmas,id',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed'
         ]);
 
         $user = User::create([
-            'nome' => $validated['nome'],
+            'name' => $validated['nome'],
             'email' => $validated['email'],
-            'password' => $validated['password'],
+            'password' => Hash::make($validated['password']),   
         ]); 
 
         Aluno::create([
