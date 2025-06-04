@@ -25,28 +25,28 @@ class DocumentoController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'url' => 'required|file|max:2048',
-        'horas_in' => 'required|numeric',
-        'comentario' => 'nullable|string|max:255',
-        'categoria_id' => 'required|exists:categorias,id',
-    ]);
+    {
+        $validated = $request->validate([
+            'url' => 'required|file|max:2048',
+            'horas_in' => 'required|numeric',
+            'comentario' => 'nullable|string|max:255',
+            'categoria_id' => 'required|exists:categorias,id',
+        ]);
 
-    $path = $request->file('url')->store('documentos', 'public');
+        $path = $request->file('url')->store('documentos', 'public');
 
-    Documento::create([
-        'url' => $path,
-        'horas_in' => $validated['horas_in'],
-        'status' => 'pendente',
-        'comentario' => $validated['comentario'] ?? null,
-        'horas_out' => 0,
-        'categoria_id' => $validated['categoria_id'],
-        'user_id' => Auth::id(),
-    ]);
+        Documento::create([
+            'url' => $path,
+            'horas_in' => $validated['horas_in'],
+            'status' => 'pendente',
+            'comentario' => $validated['comentario'] ?? null,
+            'horas_out' => 0,
+            'categoria_id' => $validated['categoria_id'],
+            'user_id' => Auth::id(),
+        ]);
 
-    return redirect()->route("documentos.index")->with('success', 'Documento criado com sucesso!');
-}
+        return redirect()->route("documentos.index")->with('success', 'Documento criado com sucesso!');
+    }
     public function show(string $id)
     {
         $documento = Documento::findOrFail($id);
@@ -58,7 +58,7 @@ class DocumentoController extends Controller
     {
         $documento = Documento::findOrFail($id);
 
-        return view('documentos.edit')->with('documentos', $documento);
+        return view('documentos.edit')->with('documento', $documento);
     }
 
     public function update(Request $request, string $id)
@@ -67,10 +67,10 @@ class DocumentoController extends Controller
 
         $validated = $request->validate([
             'url' => 'required|string',
-            'horas_in' => 'required|double',
+            'horas_in' => 'required|numeric',
             'status' => 'required|string',
             'comentario' => 'string',
-            'horas_out' => 'required|double'
+            'horas_out' => 'required|numeric'
         ]);
 
         $documento->url = $validated['url'];
@@ -90,6 +90,28 @@ class DocumentoController extends Controller
 
         $documento->delete();
 
-        return redirect()->route('niveis.index');
+        return redirect()->route('documentos.index');
+    }
+
+    public function validarIndex($id)
+    {
+        $documento = Documento::findOrFail($id);
+        return view('documentos.validar', compact('documento'));
+    }
+
+    public function validar(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:aprovado,rejeitado',
+            'horas_out' => 'required|numeric|min:0',
+        ]);
+
+        $documento = Documento::findOrFail($id);
+
+        $documento->status = $validated['status'];
+        $documento->horas_out = $validated['horas_out'];
+        $documento->save();
+
+        return redirect()->route('documentos.index')->with('success', 'Documento validado com sucesso!');
     }
 }

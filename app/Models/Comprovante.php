@@ -21,6 +21,6 @@ class Comprovante extends Model
     }
     
     public function declaracoes(){
-        return $this->hasMany(Declaracoes::class);
+        return $this->hasMany(Declaracao::class);
     }
 }

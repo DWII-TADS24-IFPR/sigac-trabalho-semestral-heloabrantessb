@@ -45,10 +45,12 @@ Route::middleware(['auth', Role::class . ':admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
         ->name('admin.dashboard');
 });
+
 Route::middleware(['auth', Role::class . ':aluno'])->group(function () {
     Route::get('/alunos/dashboard', [AlunoController::class, 'dashboard'])
         ->name('alunos.dashboard');
 });
+
 
 //rotas breeze
 Route::middleware('auth')->group(function () {

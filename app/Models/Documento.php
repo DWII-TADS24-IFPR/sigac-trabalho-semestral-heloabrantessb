@@ -19,7 +19,7 @@ class Documento extends Model
 
     public function user()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(User::class);
     }
 
       public function aluno()

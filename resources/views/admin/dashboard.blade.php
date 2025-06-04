@@ -13,6 +13,10 @@
                     {{ __("Você está logado em uma conta de administrador!") }}
                 </div>
             </div>
+            {{-- <div class="d-flex row row-cols-2 mt-4 rounded">
+                <p>Validar Horas</p>
+                <a href="btn btn-secondary" href="{{ Route('documentos.validar') }}">Validar Horas</a>
+            </div> --}}
             <div class="d-flex row row-cols-2 mt-4 rounded">
                 <div class="border border p-4 w-50 col bg-dark-subtle">
                     <p>Alunos</p>

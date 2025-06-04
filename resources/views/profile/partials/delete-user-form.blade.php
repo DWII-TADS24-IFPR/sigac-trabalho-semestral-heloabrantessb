@@ -1,55 +1,72 @@
-<section class="space-y-6">
+<section class="mb-4">
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Delete Account') }}
+        <h2 class="fs-5 fw-medium text-light">
+            {{ __('Deletar Conta') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
+        <p class="mt-2 small text-muted">
+            {{ __('Uma vez que sua conta for excluída, todos os seus recursos e dados serão permanentemente apagados. Antes de excluir sua conta, por favor, faça o download de quaisquer dados ou informações que deseja manter."') }}
         </p>
     </header>
 
-    <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    <!-- Botão para abrir modal -->
+    <button type="button" class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#confirmUserDeletionModal">
+        {{ __('Deletar Conta') }}
+    </button>
 
-    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
-            @csrf
-            @method('delete')
+    <!-- Modal -->
+    <div class="modal fade @if($errors->userDeletion->isNotEmpty()) show d-block @endif" 
+         id="confirmUserDeletionModal" 
+         tabindex="-1" 
+         aria-labelledby="confirmUserDeletionModalLabel" 
+         aria-hidden="true"
+         @if($errors->userDeletion->isNotEmpty()) style="background: rgba(0,0,0,0.5);" @endif>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{ route('profile.destroy') }}">
+                    @csrf
+                    @method('delete')
 
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                {{ __('Are you sure you want to delete your account?') }}
-            </h2>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmUserDeletionModalLabel">
+                            {{ __('Tem certeza que deseja deletar sua conta?') }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Fechar') }}"></button>
+                    </div>
 
-            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
-            </p>
+                    <div class="modal-body">
+                        <p class="small text-muted">
+                            {{ __('Uma vez que sua conta for excluída, todos os seus recursos e dados serão permanentemente apagados. Por favor, insira sua senha para confirmar que deseja excluir sua conta de forma permanente.') }}
+                        </p>
 
-            <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                        <div class="mb-3">
+                            <label for="password" class="form-label sr-only">{{ __('Senha') }}</label>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-control @error('password', 'userDeletion') is-invalid @enderror" 
+                                placeholder="{{ __('Senha') }}">
+                            
+                            @error('password', 'userDeletion')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
 
-                <x-text-input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
-                />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            {{ __('Cancelar') }}
+                        </button>
 
-                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                        <button type="submit" class="btn btn-danger ms-2">
+                            {{ __('Deletar Conta') }}
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Cancel') }}
-                </x-secondary-button>
-
-                <x-danger-button class="ms-3">
-                    {{ __('Delete Account') }}
-                </x-danger-button>
-            </div>
-        </form>
-    </x-modal>
+        </div>
+    </div>
 </section>
