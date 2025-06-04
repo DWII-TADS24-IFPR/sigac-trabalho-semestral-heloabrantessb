@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nome');
             $table->string('cpf')->unique();
             $table->string('telefone')->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('curso_id')->constrained('cursos')->onDelete('cascade');
             $table->foreignId('turma_id')->constrained('turmas')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
             $table->softDeletes();
             $table->timestamps();

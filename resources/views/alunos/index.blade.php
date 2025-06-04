@@ -17,6 +17,7 @@
                 <th scope="col">TELEFONE</th>
                 <th scope="col">CURSO</th>
                 <th scope="col">TURMA</th>
+                <th scope="col">AÇÃO</th>
             </tr>
         </thead>
         <tbody>
@@ -26,11 +27,12 @@
                     <td>{{ $aluno->nome }}</td>
                     <td>{{ $aluno->cpf }}</td>
                     <td>{{ $aluno->telefone }}</td>
-                    <td>{{ $aluno->curso->nome }}</td>
-                    <td>{{ $aluno->turma->ano }}</td>
+                    <td>{{ $aluno->curso->nome ?? 'Sem curso' }} </td>
+                    <td>{{ $aluno->turma->ano ?? 'Sem turma'}}</td>
                     <td><a href="{{ route('alunos.show', $aluno->id) }}" class="btn btn-success">Visualizar</a></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <a  class="btn btn-secondary"  href="{{ route('dashboard')}}">Voltar ao dashboard</a>
 </div>

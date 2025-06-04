@@ -9,6 +9,8 @@ use App\Models\Curso;
 use App\Models\Turma;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rules;
 
 class AlunoController extends Controller
 {
@@ -28,35 +30,39 @@ class AlunoController extends Controller
     {
         $cursos = Curso::all();
         $turmas = Turma::all();
+        
         return view('alunos.create', compact('cursos','turmas'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'telefone' => 'max:15',
-            'cpf' => 'required|max:14',
-            'curso_id' => 'required|exists:cursos,id',
-            'turma_id' => 'required|exists:turmas,id',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed'
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'cpf' => ['required', 'string', 'max:14'],
+            'telefone' => ['nullable', 'string', 'max:15'],
+            'curso_id' => ['required', 'exists:cursos,id'],
+            'turma_id' => ['required', 'exists:turmas,id'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
 
         $user = User::create([
-            'name' => $validated['nome'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),   
-        ]); 
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
         Aluno::create([
-            'nome' => $validated['nome'],
-            'cpf' => $validated['cpf'],
-            'telefone' => $validated['telefone'],
-            'curso_id' => $validated['curso_id'],
-            'turma_id' => $validated['turma_id'],
+            'nome' => $request->name,
+            'cpf' => $request->cpf,
+            'telefone' => $request->telefone,
             'user_id' => $user->id,
+            'curso_id' => $request->curso_id,
+            'turma_id' => $request->turma_id,
         ]);
+
+        event(new Registered($user));
 
         return redirect()->route('alunos.index')->with('success', 'Aluno criado com sucesso!');
     }
